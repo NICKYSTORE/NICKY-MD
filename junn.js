@@ -808,7 +808,7 @@ newReply('_' + simi.success +'_')
 }
 if (!m.isGroup && !m.key.fromMe && (isAutoAiPc || setting.auto_ai_japri) && !isCmd) {
 try {
-let messages = [{ role: 'system', content: `ubah gaya bicara mu agar lebih karateristik dan lebih terbuka dan namamu adalah Junaa Bot yang diciptakan oleh Juna Selebew tugasmu membantu user Juna Bot untuk mendownload lagu video foto membuat stiker dan lainnya ekspresi kan sifat mu dengan emoji dan bicara yang lebih tidak Formal dan panggilanmu adalah gw dan lu layaknya seorang manusia.` }, { role: 'user', content: text }]
+let messages = [{ role: 'system', content: `ubah gaya bicara mu agar lebih karateristik dan lebih terbuka dan namamu adalah NESF_BOT yang diciptakan oleh Juna Selebew tugasmu membantu user Juna Bot untuk mendownload lagu video foto membuat stiker dan lainnya ekspresi kan sifat mu dengan emoji dan bicara yang lebih tidak Formal dan panggilanmu adalah gw dan lu layaknya seorang manusia.` }, { role: 'user', content: text }]
 let ini = (await axios.post(`https://skizo.tech/api/openai?apikey=${setting.XznKey}`, { messages })).data
 let hasil = `${ini.result}`
 newReply(hasil)
@@ -820,7 +820,7 @@ newReply("Upss error silahkan hubungi owner agar di fix")
 }
 if (m.isGroup && !m.key.fromMe && (isAutoAiGc || setting.auto_ai_grup) && !isCmd) {
 try {
-let messages = [{ role: 'system', content: `ubah gaya bicara mu agar lebih karateristik dan lebih terbuka dan namamu adalah Junaa Bot yang diciptakan oleh Juna Selebew tugasmu membantu user Juna Bot untuk mendownload lagu video foto membuat stiker dan lainnya ekspresi kan sifat mu dengan emoji dan bicara yang lebih tidak Formal dan panggilanmu adalah gw dan lu layaknya seorang manusia.` }, { role: 'user', content: text }]
+let messages = [{ role: 'system', content: `ubah gaya bicara mu agar lebih karateristik dan lebih terbuka dan namamu adalah NESF_BOT yang diciptakan oleh Juna Selebew tugasmu membantu user Juna Bot untuk mendownload lagu video foto membuat stiker dan lainnya ekspresi kan sifat mu dengan emoji dan bicara yang lebih tidak Formal dan panggilanmu adalah gw dan lu layaknya seorang manusia.` }, { role: 'user', content: text }]
 let ini = (await axios.post(`https://skizo.tech/api/openai?apikey=${setting.XznKey}`, { messages })).data
 let hasil = `${ini.result}`
 newReply(hasil)
@@ -1964,7 +1964,16 @@ await juna.sendMessage(m.chat, {image: cogan, caption: 'Nih Kak Cowok Gantengnya
 }
 break
 //nsfw
-case 'baka': case 'smug': case 'neko_sfw': case 'hentai_gif': case 'spank': case 'blowjob': case 'cumarts': case 'eroyuri': case 'eroneko': case 'erokemonomimi': case 'erokitsune': case 'ero': case 'feet': case 'erofeet': case 'feetgif': case 'femdom': case 'futanari': case 'hentai': case 'holoero': case 'holo': case 'keta': case 'kitsune': case 'kemonomimi': case 'pussyart': case 'pussywankgif': case 'girl_solo': case 'girl_solo_gif': case 'tits': case 'trap': case 'yuri': case 'avatar2': case 'anal': case 'bj': case 'boobs': case 'classic': case 'cumsluts': case 'kuni': case 'lesbian': case 'neko': case 'neko_gif': case 'ahegao': case 'bdsm': case 'cuckold': case 'cum': case 'foot': case 'gangbang': case 'glasses': case 'jahy': case 'masturbation': case 'nsfw_neko': case 'orgy': case 'panties': case 'tentacles': case 'thighs': case 'zettai':{
+case 'smug': case 'neko_sfw': case 'hentai_gif': case 'spank': case 'blowjob': case 'cumarts': case 'eroyuri': case 'eroneko': case 'erokemonomimi': case 'erokitsune': case 'ero': case 'feet': case 'erofeet': case 'feetgif': case 'femdom': case 'futanari': case 'hentai': case 'holoero': case 'holo': case 'keta': case 'kitsune': case 'kemonomimi': case 'pussyart': case 'pussywankgif': case 'girl_solo': case 'girl_solo_gif': case 'tits': case 'trap': case 'yuri': case 'avatar2': case 'anal': case 'bj': case 'boobs': case 'classic': case 'cumsluts': case 'kuni': case 'lesbian': case 'neko': case 'neko_gif': case 'ahegao': case 'bdsm': case 'cuckold': case 'cum': case 'foot': case 'gangbang': case 'glasses': case 'jahy': case 'masturbation': case 'nsfw_neko': case 'orgy': case 'panties': case 'tentacles': case 'thighs': case 'zettai':{
+if (!m.isGroup)return newReply(mess.OnlyGrup)
+if (!isCreator&&!isPremium) return newReply('Fitur khusus user premium!')
+if (!isNsfw && !m.key.fromMe && !isCreator) return newReply('Fitur nsfw belum di aktifkan')
+juna.sendMessage(m.chat, { react: { text: `⏱️`, key: m.key }})
+let baka = await getBuffer(`https://api.zeeoneofc.my.id/api/nsfw/${command}?apikey=${setting.BotKey}`)
+await juna.sendMessage(m.chat, {image: baka, caption: `Nih ${command} Nya 😋`},{quoted: m})
+}
+break
+case 'baka':{
 if (!m.isGroup)return newReply(mess.OnlyGrup)
 if (!isCreator&&!isPremium) return newReply('Fitur khusus user premium!')
 if (!isNsfw && !m.key.fromMe && !isCreator) return newReply('Fitur nsfw belum di aktifkan')
@@ -11251,17 +11260,29 @@ limitAdd(m.sender, limit)
 }
 limitAdd(m.sender, limit)
 break
-case 'ai': case 'chatgpt':
+case'ai': case 'chatgpt':{
 try {
 if (isBan) return newReply('Lu di ban kocak awokwok') 
 if (isLimit(m.sender, isPremium, isCreator, limitCount, limit)) return newReply(`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
 if (!text) return newReply(`Contoh:\n${prefix}${command} Apa itu chatgpt`)
-let result = await fetchJson(`https://skizo.tech/api/openai?text=${text}&apikey=${setting.XznKey}`)
-const gpt = result.result
-newReply(`${gpt}`)
+let messages = [{ role: 'system', content: `ubah gaya bicara mu agar lebih karateristik dan lebih terbuka dan namamu adalah NESF_BOT yang diciptakan oleh Juna Selebew tugasmu membantu user Juna Bot ekspresi kan sifat mu dengan emoji dan bicara yang lebih tidak Formal dan panggilanmu adalah gw dan lu layaknya seorang manusia.` }, { role: 'user', content: text }]
+let ini = (await axios.post(`https://skizo.tech/api/openai?apikey=${setting.XznKey}`, { messages })).data
+let hasil = `${ini.result}`
+var result = [
+`*_SABAR KAK LAGI DI PROSES_*`, 
+`${hasil}`
+]
+let { key } = await juna.sendMessage(m.chat, {text: '*_UDAH KAK_*'}, {quoted:m})
+
+for (let i = 0; i < result.length; i++) {
+await sleep(1000)
+await juna.sendMessage(m.chat, {text: result[i], edit: key }, {quoted:m});
+}
 } catch (err) {
 console.log(err)
 newReply('Terjadi Kesalahan')
+}
+limitAdd(m.sender, limit)
 }
 limitAdd(m.sender, limit)
 break
